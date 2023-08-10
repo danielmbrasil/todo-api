@@ -40,6 +40,12 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 
+  gem 'rubocop', '~> 1.56', require: false
+
+  gem 'rubocop-rails', '~> 2.20', '>= 2.20.2', require: false
+
+  gem 'rubocop-rspec', '~> 2.23', '>= 2.23.2', require: false
+
   gem 'rspec-rails', '~> 6.0', '>= 6.0.3'
 end
 
