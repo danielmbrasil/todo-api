@@ -1,0 +1,41 @@
+name: "Ruby linting"
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "Gemfile*"
+      - ".rubocop*.yml"
+      - "**/*.rb"
+      - "**/*.rake"
+      - ".github/workflows/ruby-lint.yml"
+  pull_request:
+    paths:
+      - "Gemfile*"
+      - ".rubocop*.yml"
+      - "**/*.rb"
+      - "**/*.rake"
+      - ".github/workflows/ruby-lint.yml"
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Install system dependencies
+        run: |
+          sudo apt install libpq-dev
+          gem install bundler
+
+      - name: Install gems
+        run: bundle install
+
+      - name: Run Rubocop
+        run: bundle exec rubocop
